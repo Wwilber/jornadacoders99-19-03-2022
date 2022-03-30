@@ -50,10 +50,13 @@ create table pedido(
     vl_subtotal decimal(9,2),
     vl_entrega decimal(9,2),
     vl_total decimal(9,2),
-    
+	
     primary key(id_pedido),
     foreign key(id_usuario) references usuario(id_usuario)
 ) default charset utf8;
+
+ALTER TABLE pedido ADD status CHAR(01) NULL; /* A (aguardando) P (em produção) E (saiu entrega), F (finalizado) */
+
     
 create table pedido_item(
 	id_item int not null auto_increment,
@@ -74,6 +77,9 @@ insert into config(vl_entrega) VALUES (4.00);
 
 insert into usuario(nome, email, senha, endereco, bairro, cidade, uf, cep, dt_cadastro)
 values ('Wilber Ribeiro', 'jwilber1772@gmail.com', '123', 'Rua 7, 221', 'Novo Maracanau', 'Maracanau', 'CE', '61905-500', current_timestamp());
+
+insert into usuario(nome, email, senha, endereco, bairro, cidade, uf, cep, dt_cadastro)
+values ('Aline Tomaz', 'jwilber1772@gmail.com', '123', 'Rua 7, 221', 'Novo Maracanau', 'Maracanau', 'CE', '61905-500', current_timestamp());
 
 insert into produto_categoria(descricao, ordem) values ('Ofertas', 1);
 insert into produto_categoria(descricao, ordem) values ('Burgers', 2);
@@ -139,6 +145,9 @@ values(4, 'Sprite Lemon', 'Sprite Lemon fresh 500ml', 8.90,
 insert into pedido(id_usuario, data_pedido, vl_subtotal, vl_entrega, vl_total)
 values(1, current_timestamp(), 85.60, 4.00, 89.60);
 
+insert into pedido(id_usuario, data_pedido, vl_subtotal, vl_entrega, vl_total)
+values(2, current_timestamp(), 100.00, 10.00, 90.00);
+
 insert into pedido_item(id_pedido, id_produto, qtd, vl_unitario, vl_total) values(1, 1, 2, 33.80, 67.60);
 insert into pedido_item(id_pedido, id_produto, qtd, vl_unitario, vl_total) values(1, 11, 3, 6.00, 18.00);
 
@@ -146,3 +155,4 @@ ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '12345';
 
 flush privileges;
  
+ select * from pedido;
