@@ -159,7 +159,7 @@ app.post('/pedidos', function (request, response) {
 // ROTA: ENDPOINT STATUS PEDIDO NA APLICAÇÃO WEB:
 app.put('/pedidos/status/:id_pedido', function (request, response) {
   // http://localhost:3000/pedidos/status/1000 :
-  let ssql = 'update pedido status = ? where id_pedido = ?'
+  let ssql = 'update pedido set status = ? where id_pedido = ?'
 
   db.query(
     ssql,
@@ -168,7 +168,9 @@ app.put('/pedidos/status/:id_pedido', function (request, response) {
       if (err) {
         return response.status(500).send(err)
       } else {
-        return response.status(200).json({ id_pedido: id_pedido })
+        return response
+          .status(200)
+          .json({ id_pedido: request.params.id_pedido })
       }
     }
   )
