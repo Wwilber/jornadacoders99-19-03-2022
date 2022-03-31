@@ -98,20 +98,6 @@ app.get('/pedidos/itens', function (request, response) {
   })
 })
 
-// ROTA - mobile -ENDPOINT: LISTAR AS CONFIGURAÇÕES DA PLATAFORMA - LISTAR TODOS OS DADOS QUE A APLICAÇÃO PRECISA PRA FUNCIONAR: taxa de entrega ou outra coisa:
-
-app.get('/configs', function (request, response) {
-  let ssql = 'select * from config'
-
-  db.query(ssql, function (err, result) {
-    if (err) {
-      return response.status(500).send(err)
-    } else {
-      return response.status(200).json(result[0])
-    }
-  })
-})
-
 // ROTA - mobile: O APP FAZ A REQUISIÇÃO PARA A API PARA CADASTRAR O PEDIDO(post):
 app.post('/pedidos', function (request, response) {
   db.beginTransaction(function (err) {
@@ -171,22 +157,34 @@ app.post('/pedidos', function (request, response) {
 })
 
 // ROTA: ENDPOINT STATUS PEDIDO NA APLICAÇÃO WEB:
-app.put('/pedidos/status', function (request, response) {
-  /*
-  let ssql = 'select c.descricao AS categoria,  p.* '
-  ssql += 'from produto p '
-  ssql += 'join produto_categoria c '
-  ssql += 'on (c.id_categoria = p.id_categoria) '
-  ssql += 'order by c.ordem '
+app.put('/pedidos/status/:id_pedido', function (request, response) {
+  // http://localhost:3000/pedidos/status/1000 :
+  let ssql = 'update pedido status = ? where id_pedido = ?'
+
+  db.query(
+    ssql,
+    [request.body.status, request.params.id_pedido],
+    function (err, result) {
+      if (err) {
+        return response.status(500).send(err)
+      } else {
+        return response.status(200).json({ id_pedido: id_pedido })
+      }
+    }
+  )
+})
+
+// ROTA - mobile -ENDPOINT: LISTAR AS CONFIGURAÇÕES DA PLATAFORMA - LISTAR TODOS OS DADOS QUE A APLICAÇÃO PRECISA PRA FUNCIONAR: taxa de entrega ou outra coisa:
+app.get('/configs', function (request, response) {
+  let ssql = 'select * from config'
 
   db.query(ssql, function (err, result) {
     if (err) {
       return response.status(500).send(err)
     } else {
-      return response.status(200).json(result)
+      return response.status(200).json(result[0])
     }
   })
-  */
 })
 
 // aplicação respondendo na porta 3000 e mostrar a mensagem da função callback:
