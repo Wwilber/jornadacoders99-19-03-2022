@@ -1,0 +1,28 @@
+object FrmPrincipal: TFrmPrincipal
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 794
+  ClientWidth = 524
+  Fill.Kind = Solid
+  Position = Designed
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 0
+  object rectToolbar: TRectangle
+    Align = Top
+    Fill.Color = claWhite
+    Sides = [Bottom]
+    Size.Width = 524.000000000000000000
+    Size.Height = 50.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Color = xFFECECEC
+    object Image1: TImage
+      MultiResBitmap = <
+        item
+        end>
+      Align = Left
+    end
+  end
+end

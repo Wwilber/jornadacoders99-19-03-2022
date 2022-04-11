@@ -1,0 +1,3 @@
+inherited FrmPrincipal_Windows: TFrmPrincipal_Windows
+  DesignerMasterStyle = 0
+end
